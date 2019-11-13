@@ -24,8 +24,9 @@ defmodule Gg do
   end
 
   defmacro visualize(map) do
-    graph = as_graph(map)
-    Graph.to_dot(graph)
+    map
+    |> as_graph()
+    |> Graph.to_dot()
   end
 
   defmacro topological_order(map) do
