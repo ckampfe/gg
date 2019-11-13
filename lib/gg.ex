@@ -28,6 +28,12 @@ defmodule Gg do
     Graph.to_dot(graph)
   end
 
+  defmacro topological_order(map) do
+    map
+    |> as_graph()
+    |> Graph.topsort()
+  end
+
   def as_graph(map) do
     edges = Gg.compute_edges(map)
 

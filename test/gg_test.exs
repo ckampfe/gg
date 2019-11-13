@@ -44,6 +44,19 @@ defmodule GgTest do
            }
   end
 
+  test "topological order" do
+    ordering =
+      Gg.topological_order(%{
+        a: fn %{args: args} -> id(args) end,
+        e: fn %{c: c, d: d} -> add(c, d) end,
+        c: fn %{b: b} -> minus_2(b) end,
+        b: fn %{a: a} -> plus_1(a) end,
+        d: fn %{c: c} -> plus_5(c) end
+      })
+
+    assert ordering == [:args, :a, :b, :c, :d, :e]
+  end
+
   test "to dot" do
     result =
       Gg.visualize(%{
